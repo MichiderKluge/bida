@@ -1,0 +1,9 @@
+
+.swiper {
+  width: 300px;
+  height: 450px;
+}
+
+.swiper-slide {
+    border-radius: 8px;
+}
