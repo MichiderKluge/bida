@@ -6,6 +6,7 @@ const ButtonContainer = styled.button<{ $color?: string }>`
   min-width: 32px;
 
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 
@@ -13,22 +14,34 @@ const ButtonContainer = styled.button<{ $color?: string }>`
 
   border: 1.5px solid black;
   border-radius: 8px;
+  font-weight: 600;
 
-  background-color: ${(props) => props.$color};
+  background-color: white;
 
   &:focus {
-    background: linear-gradient(white, white) padding-box,
-      linear-gradient(to right, darkblue, darkorchid) border-box;
-    border-radius: 8px;
-    border: 4px solid transparent;
+    color: white;
+    font-weight: 600;
+    border: 0px;
+    background: rgb(2, 0, 36);
+    background: linear-gradient(
+      140deg,
+      rgba(2, 0, 36, 1) 0%,
+      rgba(9, 9, 121, 1) 43%,
+      rgba(186, 0, 255, 1) 100%
+    );
   }
 `;
 
 type ButtonProps = {
-  children: string;
-  color: string;
+  short: string
+  long: string
 };
 
-export default function Button({ children, color }: ButtonProps) {
-  return <ButtonContainer $color={color}>{children}</ButtonContainer>;
+export default function Button({ short, long }: ButtonProps) {
+  return (
+  <ButtonContainer>
+    <div>{short}</div>
+    <div style={{ fontWeight: 400 }}>{long}</div>
+  </ButtonContainer>
+  )
 }

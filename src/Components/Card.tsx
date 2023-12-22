@@ -10,7 +10,7 @@ const CardContainer = styled.div`
 
   outline: 3.5px solid black;
   outline-offset: -3px;
-  border-radius: 8px;
+  border-radius: 16px;
   background-color: white;
 `;
 

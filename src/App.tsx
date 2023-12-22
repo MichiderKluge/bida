@@ -41,7 +41,7 @@ const CardWrapper = styled.div`
 `;
 
 const ButtonSection = styled.div`
-  width: 300px;
+  width: 350px;
   height: fit-content;
 
   display: flex;
@@ -91,12 +91,12 @@ export default function App() {
       </CardWrapper>
       <ButtonSection>
         <ButtonRow>
-          <Button color="#ffffff">BDA</Button>
-          <Button color="#ffffff">NDA</Button>
+          <Button short="BDA" long="BistDasArschloch"/>
+          <Button short="NDA" long="NichtDasArschloch"/>
         </ButtonRow>
         <ButtonRow>
-          <Button color="#ffffff">ASA</Button>
-          <Button color="#ffffff">KAH</Button>
+          <Button short="ASA" long="AlleSindArschlöcher"/>
+          <Button short="KAH" long="KeineArschlöcherHier"/>
         </ButtonRow>
       </ButtonSection>
     </AppContainer>
