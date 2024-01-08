@@ -2,6 +2,7 @@
     "workbench.colorCustomizations": {
         "activityBar.background": "#0F3519",
         "titleBar.activeBackground": "#164A23",
-        "titleBar.activeForeground": "#F5FCF7"
+        "titleBar.activeForeground": "#F5FCF7",
+        "terminal.integrated.stickyScroll.enabled": true,
     }
 }
