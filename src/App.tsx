@@ -15,8 +15,6 @@ import "./styles.css";
 // import required modules
 import { EffectCards } from "swiper/modules";
 
-import { MongoClient } from "mongodb";
-
 const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -58,15 +56,6 @@ const ButtonRow = styled.div`
   flex-direction: row;
   justify-content: center;
 `;
-
-/* const mongoClient = new MongoClient(
-  "mongodb+srv://michaelkluge:o7z6B5jrQnTvrEMN@votes.b6hobhd.mongodb.net/votes?retryWrites=true&w=majority"
-);
-
-const data = await mongoClient.db().collection('votes').find({}).toArray()
-
-console.log(data); */
-
 
 export default function App() {
   const [buttonStates, setButtonStates] = useState<string[]>([]);
