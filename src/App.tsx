@@ -1,3 +1,5 @@
+import { Analytics } from '@vercel/analytics/react';
+
 import Button from "./Components/Button";
 import FlipableCard from "./Components/FlipableCard";
 import Header from "./Components/Header";
@@ -152,6 +154,7 @@ export default function App() {
           />
         </ButtonRow>
       </ButtonSection>
+      <Analytics />
     </AppContainer>
   );
 }
