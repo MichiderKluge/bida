@@ -9,12 +9,13 @@ const FlipableCardContainer = styled.div`
   height: 450px;
   width: 300px;
   perspective: 1500px;
+  overflow: hidden;
 `;
 
 type CardProps = {
-  title: string
-  selftext: string
-}
+  title: string;
+  selftext: string;
+};
 
 export default function FlipableCard({ title, selftext }: CardProps) {
   const [showFront, setShowFront] = useState(true);

@@ -40,7 +40,7 @@ const CardFront = styled.div`
 
 const CardBack = styled(CardFront)`
   align-items: flex-start;
-  
+
   transform: rotateY(180deg);
 
   padding: 16px;
@@ -48,6 +48,10 @@ const CardBack = styled(CardFront)`
   font-size: 1.25rem;
   font-weight: 300;
   padding: 16px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 type CardProps = {
@@ -59,12 +63,8 @@ type CardProps = {
 export default function Card({ title, selftext, onClick }: CardProps) {
   return (
     <CardContainer onClick={onClick}>
-      <CardFront>
-        {title}
-      </CardFront>
-      <CardBack>
-        {selftext}
-      </CardBack>
+      <CardFront>{title}</CardFront>
+      <CardBack>{selftext}</CardBack>
     </CardContainer>
   );
 }
