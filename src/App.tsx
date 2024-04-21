@@ -5,7 +5,7 @@ import FlipableCard from "./Components/FlipableCard";
 import Header from "./Components/Header";
 import posts from "./Constants";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 
 import styled from "styled-components";
 // Import Swiper React components
