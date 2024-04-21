@@ -17,6 +17,9 @@ import "./styles.css";
 // import required modules
 import { EffectCards } from "swiper/modules";
 
+import LazyLoad from 'react-lazyload';
+
+
 const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -60,7 +63,7 @@ const ButtonRow = styled.div`
 `;
 
 export default function App() {
-  let lazyPosts = posts.slice(10, 20);
+  let lazyPosts = posts;
 
   const [buttonStates, setButtonStates] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -73,7 +76,7 @@ export default function App() {
       typeof swiper.activeIndex === "function"
         ? swiper.activeIndex(0)
         : swiper.activeIndex;
-    setActiveIndex(lazyPosts[activeIndex].activeIndex);
+    setActiveIndex(lazyPosts[activeIndex].key);
   };
 
   return (
@@ -86,20 +89,22 @@ export default function App() {
           modules={[EffectCards]}
           className="mySwiper"
           onSlideChange={handleSlideChange}
+          lazyPreloadPrevNext={5}
         >
           {lazyPosts.map((post, index) => {
             return (
               <SwiperSlide key={index}>
+              <LazyLoad height={200}> {/* Set a height for the placeholder */}
                 <FlipableCard
                   title={post.data.title}
                   selftext={post.data.selftext}
                 />
-              </SwiperSlide>
+              </LazyLoad>
+            </SwiperSlide>
             );
           })}
         </Swiper>
       </CardWrapper>
-      {activeIndex}
       <ButtonSection>
         <ButtonRow>
           <Button
