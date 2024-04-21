@@ -1,4 +1,4 @@
-import { Analytics } from '@vercel/analytics/react';
+import { Analytics } from "@vercel/analytics/react";
 
 import Button from "./Components/Button";
 import FlipableCard from "./Components/FlipableCard";
@@ -60,13 +60,20 @@ const ButtonRow = styled.div`
 `;
 
 export default function App() {
+  let lazyPosts = posts.slice(10, 20);
+
   const [buttonStates, setButtonStates] = useState<string[]>([]);
   const [activeIndex, setActiveIndex] = useState<number>(0);
 
   const handleSlideChange = (swiper: {
-    activeIndex: SetStateAction<number>;
+    activeIndex: number | ((prevState: number) => number);
   }) => {
-    setActiveIndex(swiper.activeIndex);
+    // If swiper.activeIndex is a function, call it to get the actual number value
+    const activeIndex =
+      typeof swiper.activeIndex === "function"
+        ? swiper.activeIndex(0)
+        : swiper.activeIndex;
+    setActiveIndex(lazyPosts[activeIndex].activeIndex);
   };
 
   return (
@@ -80,7 +87,7 @@ export default function App() {
           className="mySwiper"
           onSlideChange={handleSlideChange}
         >
-          {posts.map((post, index) => {
+          {lazyPosts.map((post, index) => {
             return (
               <SwiperSlide key={index}>
                 <FlipableCard
@@ -92,65 +99,38 @@ export default function App() {
           })}
         </Swiper>
       </CardWrapper>
+      {activeIndex}
       <ButtonSection>
         <ButtonRow>
           <Button
             short="BDA"
             long="Bist Das Arschloch"
-            active={buttonStates[activeIndex] == "BDA" ? true : false}
-            onClick={() => {
-              const nextStates = [...buttonStates];
-              if (nextStates[activeIndex] == "BDA") {
-                nextStates[activeIndex] = "";
-              } else {
-                nextStates[activeIndex] = "BDA";
-              }
-              setButtonStates(nextStates);
-            }}
+            activeIndex={activeIndex}
+            buttonStates={buttonStates}
+            onButtonClick={setButtonStates}
           />
           <Button
             short="NDA"
             long="Nicht Das Arschloch"
-            active={buttonStates[activeIndex] == "NDA" ? true : false}
-            onClick={() => {
-              const nextStates = [...buttonStates];
-              if (nextStates[activeIndex] == "NDA") {
-                nextStates[activeIndex] = "";
-              } else {
-                nextStates[activeIndex] = "NDA";
-              }
-              setButtonStates(nextStates);
-            }}
+            activeIndex={activeIndex}
+            buttonStates={buttonStates}
+            onButtonClick={setButtonStates}
           />
         </ButtonRow>
         <ButtonRow>
           <Button
             short="ASA"
             long="Alle Sind Arschlöcher"
-            active={buttonStates[activeIndex] == "ASA" ? true : false}
-            onClick={() => {
-              const nextStates = [...buttonStates];
-              if (nextStates[activeIndex] == "ASA") {
-                nextStates[activeIndex] = "";
-              } else {
-                nextStates[activeIndex] = "ASA";
-              }
-              setButtonStates(nextStates);
-            }}
+            activeIndex={activeIndex}
+            buttonStates={buttonStates}
+            onButtonClick={setButtonStates}
           />
           <Button
             short="KAH"
             long="Keine Arschlöcher Hier"
-            active={buttonStates[activeIndex] == "KAH" ? true : false}
-            onClick={() => {
-              const nextStates = [...buttonStates];
-              if (nextStates[activeIndex] == "KAH") {
-                nextStates[activeIndex] = "";
-              } else {
-                nextStates[activeIndex] = "KAH";
-              }
-              setButtonStates(nextStates);
-            }}
+            activeIndex={activeIndex}
+            buttonStates={buttonStates}
+            onButtonClick={setButtonStates}
           />
         </ButtonRow>
       </ButtonSection>

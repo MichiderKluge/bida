@@ -18,8 +18,9 @@ const ButtonContainer = styled.div<{ $active: boolean }>`
 
   background-color: white;
 
-  ${({$active}) => {if($active == true) return(
-    `color: white;
+  ${({ $active }) => {
+    if ($active == true)
+      return `color: white;
     font-weight: 600;
     outline: 0px;
     background: rgb(2, 0, 36);
@@ -28,23 +29,35 @@ const ButtonContainer = styled.div<{ $active: boolean }>`
       rgba(2, 0, 36, 1) 0%,
       rgba(9, 9, 121, 1) 43%,
       rgba(186, 0, 255, 1) 100%
-    );`
-  )}}
+    );`;
+  }}
 `;
 
-
 type ButtonProps = {
-  short: string
-  long: string
-  active: boolean
-  onClick: () => void
+  short: string;
+  long: string;
+  activeIndex: number;
+  buttonStates: string[];
+  onButtonClick: (buttonStates: string[]) => void;
 };
 
-export default function Button({ short, long, active, onClick }: ButtonProps) {
+export default function Button({ short, long, activeIndex, buttonStates, onButtonClick }: ButtonProps) {
   return (
-  <ButtonContainer onClick={onClick} $active={active}>
-    <div>{short}</div>
-    <div style={{ fontWeight: 400, fontSize: 14 }}>{long}</div>
-  </ButtonContainer>
-  )
+    <ButtonContainer
+      role="button"
+      tabIndex={0}
+      aria-pressed="false"
+      onClick={() => {
+        if (buttonStates[activeIndex] != short) {
+          let newArr = {...buttonStates}
+          newArr[activeIndex] = short
+          onButtonClick(newArr);
+        }
+      }}
+      $active={short == buttonStates[activeIndex]}
+    >
+      <div>{short}</div>
+      <div style={{ fontWeight: 400, fontSize: 14 }}>{long}</div>
+    </ButtonContainer>
+  );
 }
