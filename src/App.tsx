@@ -5,7 +5,7 @@ import FlipableCard from "./Components/FlipableCard";
 import Header from "./Components/Header";
 import posts from "./Constants";
 
-import { /* SetStateAction */ useState } from "react";
+import { useState, useRef } from "react";
 
 import styled from "styled-components";
 // Import Swiper React components
@@ -86,24 +86,16 @@ export default function App() {
           modules={[EffectCards]}
           className="mySwiper"
           onSlideChange={handleSlideChange}
-          lazyPreloadPrevNext={5}
         >
           {lazyPosts.map((post, index) => {
-            // Calculate the range of indices to render based on the activeIndex
-            const startIndex = Math.max(0, activeIndex - 5);
-            const endIndex = Math.min(lazyPosts.length - 1, activeIndex + 5);
-            // Render only the cards within the range
-            if (index >= startIndex && index <= endIndex) {
-              return (
-                <SwiperSlide key={index}>
-                  <FlipableCard
-                    title={post.data.title}
-                    selftext={post.data.selftext}
-                  />
-                </SwiperSlide>
-              );
-            }
-            return null; // Render nothing for cards outside the range
+            return post.key < activeIndex + 5 ? (
+              <SwiperSlide key={index}>
+                <FlipableCard
+                  title={post.data.title}
+                  selftext={post.data.selftext}
+                />
+              </SwiperSlide>
+            ) : null;
           })}
         </Swiper>
       </CardWrapper>
