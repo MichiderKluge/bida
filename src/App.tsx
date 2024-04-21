@@ -17,9 +17,6 @@ import "./styles.css";
 // import required modules
 import { EffectCards } from "swiper/modules";
 
-import LazyLoad from 'react-lazyload';
-
-
 const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -92,16 +89,21 @@ export default function App() {
           lazyPreloadPrevNext={5}
         >
           {lazyPosts.map((post, index) => {
-            return (
-              <SwiperSlide key={index}>
-              <LazyLoad height={200}> {/* Set a height for the placeholder */}
-                <FlipableCard
-                  title={post.data.title}
-                  selftext={post.data.selftext}
-                />
-              </LazyLoad>
-            </SwiperSlide>
-            );
+            // Calculate the range of indices to render based on the activeIndex
+            const startIndex = Math.max(0, activeIndex - 5);
+            const endIndex = Math.min(lazyPosts.length - 1, activeIndex + 5);
+            // Render only the cards within the range
+            if (index >= startIndex && index <= endIndex) {
+              return (
+                <SwiperSlide key={index}>
+                  <FlipableCard
+                    title={post.data.title}
+                    selftext={post.data.selftext}
+                  />
+                </SwiperSlide>
+              );
+            }
+            return null; // Render nothing for cards outside the range
           })}
         </Swiper>
       </CardWrapper>
