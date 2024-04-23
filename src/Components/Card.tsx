@@ -55,7 +55,7 @@ const CardBack = styled(CardFront)`
 `;
 
 type CardProps = {
-  title: string;
+  title: string | number;
   selftext: string;
   onClick: () => void;
 };

@@ -17,6 +17,8 @@ import "./styles.css";
 // import required modules
 import { EffectCards } from "swiper/modules";
 
+import LazyLoad from "react-lazyload";
+
 const AppContainer = styled.div`
   width: 100vw;
   height: 100vh;
@@ -73,7 +75,7 @@ export default function App() {
       typeof swiper.activeIndex === "function"
         ? swiper.activeIndex(0)
         : swiper.activeIndex;
-    setActiveIndex(lazyPosts[activeIndex].key);
+    setActiveIndex(activeIndex);
   };
 
   return (
@@ -86,19 +88,19 @@ export default function App() {
           modules={[EffectCards]}
           className="mySwiper"
           onSlideChange={handleSlideChange}
+          lazyPreloadPrevNext={5} // das klingt ja eigentlich genau richtig. In den Docs steht halt das man dafür LazyLoading intigriert haben muss
+          lazyPreloaderClass="swiper-lazy-preloader"
         >
           {lazyPosts.map((post, index) => {
-            return post.key < activeIndex + 5 ? (
+            return (
               <SwiperSlide key={index}>
-                <FlipableCard
-                  title={post.data.title}
-                  selftext={post.data.selftext}
-                />
+                <FlipableCard title={post.key} selftext={post.data.selftext} />
               </SwiperSlide>
-            ) : null;
+            );
           })}
         </Swiper>
       </CardWrapper>
+      {activeIndex}
       <ButtonSection>
         <ButtonRow>
           <Button

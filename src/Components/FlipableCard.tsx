@@ -13,7 +13,7 @@ const FlipableCardContainer = styled.div`
 `;
 
 type CardProps = {
-  title: string;
+  title:  string | number;
   selftext: string;
 };
 
