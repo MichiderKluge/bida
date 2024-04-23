@@ -92,11 +92,11 @@ export default function App() {
           lazyPreloaderClass="swiper-lazy-preloader"
         >
           {lazyPosts.map((post, index) => {
-            return (
+            return post.key < activeIndex + 5 && post.key > activeIndex - 5 ?(
               <SwiperSlide key={index}>
                 <FlipableCard title={post.key} selftext={post.data.selftext} />
               </SwiperSlide>
-            );
+            ) : null;
           })}
         </Swiper>
       </CardWrapper>
