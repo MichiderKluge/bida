@@ -10,14 +10,13 @@ import { useState } from "react";
 import styled from "styled-components";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+// import required modules
+import { EffectCards, Virtual } from "swiper/modules";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/effect-cards";
 import "./styles.css";
-// import required modules
-import { EffectCards } from "swiper/modules";
-
-import LazyLoad from "react-lazyload";
+import "swiper/css/virtual";
 
 const AppContainer = styled.div`
   width: 100vw;
@@ -85,18 +84,18 @@ export default function App() {
         <Swiper
           effect={"cards"}
           grabCursor={true}
-          modules={[EffectCards]}
+          modules={[Virtual, EffectCards]}
           className="mySwiper"
           onSlideChange={handleSlideChange}
-          lazyPreloadPrevNext={5} // das klingt ja eigentlich genau richtig. In den Docs steht halt das man dafür LazyLoading intigriert haben muss
-          lazyPreloaderClass="swiper-lazy-preloader"
+          virtual
+          slidesPerView={1}
         >
           {lazyPosts.map((post, index) => {
-            return post.key < activeIndex + 5 && post.key > activeIndex - 5 ?(
-              <SwiperSlide key={index}>
+            return (
+              <SwiperSlide key={index} virtualIndex={index}>
                 <FlipableCard title={post.key} selftext={post.data.selftext} />
               </SwiperSlide>
-            ) : null;
+            );
           })}
         </Swiper>
       </CardWrapper>
